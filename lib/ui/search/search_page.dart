@@ -36,7 +36,8 @@ class SearchPage extends GetView<SearchVideoController> {
                   ),
                   contentPadding: const EdgeInsets.only(left: 10)),
             )),
-            ElevatedButton(onPressed: controller.getData, child: const Text('搜索'))
+            ElevatedButton(
+                onPressed: controller.getData, child: const Text('搜索'))
           ]))),
       body: Obx(() => ListView.builder(
             itemCount: controller.datas.length,
@@ -56,6 +57,10 @@ class SearchPage extends GetView<SearchVideoController> {
                           if (MyUtils.isPhone()) {
                             MyToast.showToast('开始下载');
                           }
+                          controller.download(
+                            controller.videoInfoEntity.value?.url,
+                            controller.datas[index].title,
+                          );
                         },
                         icon: const Icon(Icons.download),
                       ),

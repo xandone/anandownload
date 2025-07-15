@@ -1,8 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../entity/videoinfo_entity.dart';
 import '../../http/api.dart';
@@ -48,5 +49,11 @@ class SearchVideoController extends GetxController {
           VideoInfoEntity.fromJson(value['data']['durl'][0]);
       Log.d('ssss=${videoInfoEntity.value?.url}');
     });
+  }
+
+  void download(String? url, String fileName) async {
+    final Directory? downloadsDir = await getDownloadsDirectory();
+    final String savePath = '${downloadsDir?.path}/$fileName.mp4';
+    HttpDio.instance.download(url!, savePath);
   }
 }

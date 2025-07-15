@@ -99,6 +99,10 @@ class HttpDio {
       Error.handleError(e);
     }
   }
+
+  Future<dynamic> download(String urlPath, String savePath) async {
+    _dio.download(urlPath, savePath);
+  }
 }
 
 class Error {

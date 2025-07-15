@@ -23,7 +23,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
+      body: SafeArea(
+          child: Row(
         children: [
           Visibility(
             visible: MyUtils.isPC(),
@@ -38,21 +39,22 @@ class HomePage extends StatelessWidget {
                 )),
           ),
         ],
-      ),
+      )),
       bottomNavigationBar: Visibility(
           visible: MyUtils.isPhone(),
-          child: BottomNavigationBar(
-            selectedItemColor: MyColors.textColor1,
-            unselectedItemColor: MyColors.textColor2,
-            currentIndex: _index.value,
-            onTap: (index) {
-              _index.value = index;
-            },
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.search), label: "搜索"),
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "下载")
-            ],
-          )),
+          child: Obx(() => BottomNavigationBar(
+                selectedItemColor: MyColors.textColor1,
+                unselectedItemColor: MyColors.textColor2,
+                currentIndex: _index.value,
+                onTap: (index) {
+                  _index.value = index;
+                },
+                items: const [
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.search), label: "搜索"),
+                  BottomNavigationBarItem(icon: Icon(Icons.home), label: "下载")
+                ],
+              ))),
     );
   }
 
