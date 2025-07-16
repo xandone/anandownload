@@ -1,15 +1,17 @@
 import 'dart:async';
-import 'dart:io';
 
+import 'package:anandownload/service/download_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
 
+import '../../download/download_task.dart';
 import '../../entity/videoinfo_entity.dart';
 import '../../http/api.dart';
 import '../../http/http_dio.dart';
+import '../../model/video_info_details.dart';
 import '../../model/videoinfo_model.dart';
 import '../../utils/logger.dart';
+import '../../utils/my_utils.dart';
 
 /// @author: xiao
 /// created on: 2025/7/11 17:42
@@ -19,7 +21,7 @@ class SearchVideoController extends GetxController {
   TextEditingController textEditingController = TextEditingController();
 
   RxList<VideoInfoModel> datas = RxList();
-  Rx<VideoInfoEntity?> videoInfoEntity = Rx(null);
+  Rx<VideoInfoDetails?> videoInfoDetails = Rx(null);
 
   @override
   void onInit() {
@@ -45,15 +47,14 @@ class SearchVideoController extends GetxController {
       'otype': 'json',
       'high_quality': 1
     }).then((value) {
-      videoInfoEntity.value =
-          VideoInfoEntity.fromJson(value['data']['durl'][0]);
-      Log.d('ssss=${videoInfoEntity.value?.url}');
+      videoInfoDetails.value =
+          VideoInfoDetails.fromJson(value['data']['durl'][0]);
     });
   }
 
-  void download(String? url, String fileName) async {
-    final Directory? downloadsDir = await getDownloadsDirectory();
-    final String savePath = '${downloadsDir?.path}/$fileName.mp4';
-    HttpDio.instance.download(url!, savePath);
+  void addDownloadTask() async {
+    DownloadTask task =
+        await DownloadTask.create(datas[0], videoInfoDetails.value);
+    DownloadService.instance.addDownloadTask(task);
   }
 }

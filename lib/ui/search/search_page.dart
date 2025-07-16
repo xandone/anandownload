@@ -1,3 +1,4 @@
+import 'package:anandownload/download/download_task.dart';
 import 'package:anandownload/res/colors.dart';
 import 'package:anandownload/ui/search/search_controller.dart';
 import 'package:anandownload/utils/my_utils.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../components/drag_wiget.dart';
+import '../../service/download_service.dart';
+import '../../utils/logger.dart';
 import '../../widget/image_loader.dart';
 
 /// @author: xiao
@@ -57,10 +60,7 @@ class SearchPage extends GetView<SearchVideoController> {
                           if (MyUtils.isPhone()) {
                             MyToast.showToast('开始下载');
                           }
-                          controller.download(
-                            controller.videoInfoEntity.value?.url,
-                            controller.datas[index].title,
-                          );
+                          controller.addDownloadTask();
                         },
                         icon: const Icon(Icons.download),
                       ),

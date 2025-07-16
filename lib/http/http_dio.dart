@@ -100,8 +100,9 @@ class HttpDio {
     }
   }
 
-  Future<dynamic> download(String urlPath, String savePath) async {
-    _dio.download(urlPath, savePath);
+  Future<dynamic> download(String urlPath, String savePath,
+      ProgressCallback? onReceiveProgress) async {
+    _dio.download(urlPath, savePath, onReceiveProgress: onReceiveProgress);
   }
 }
 
