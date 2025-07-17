@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../download/download_task.dart';
-import '../../entity/videoinfo_entity.dart';
+import '../../entity/video_entity.dart';
 import '../../http/api.dart';
 import '../../http/http_dio.dart';
 import '../../model/video_info_details.dart';

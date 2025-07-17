@@ -32,11 +32,11 @@ class DownloadService extends GetxService {
   }
 
   void download(DownloadTask task) async {
-    await HttpDio.instance.download(task.url!, task.savePath,
-        (received, total) {
+    await HttpDio.instance
+        .download(task.videoEntity.url!, task.videoEntity.savePath,
+            (received, total) {
       Log.d('received=$received,total=$total');
     });
-    Log.d('下载完成');
   }
 
   void startPeriodic() {

@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../res/assets.dart';
 import '../../res/colors.dart';
 import '../../res/gaps.dart';
 import '../../utils/my_utils.dart';
@@ -34,7 +35,7 @@ class HomePage extends StatelessWidget {
             child: Obx(() => Center(
                   child: IndexedStack(index: _index.value, children: [
                     SearchPage(),
-                    DownloadPage(),
+                    const DownloadPage(),
                   ]),
                 )),
           ),
@@ -64,7 +65,7 @@ class HomePage extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       decoration: const BoxDecoration(color: Colors.grey),
       child: Column(children: [
-        Gaps.vGaps50,
+        Image.asset(Assets.logo, width: 60, height: 60),
         InkWell(
           child: const Row(
             children: [Icon(Icons.search), Text("搜索")],
