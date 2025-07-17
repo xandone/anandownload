@@ -5,11 +5,13 @@
 class VideoEntity {
   VideoEntity({
     this.id,
-    this.size,
+    this.size = 0,
     this.timelength,
     this.url,
     this.fileName,
     this.pic,
+    this.dSize = 0,
+    this.progress = 0,
     required this.savePath,
   });
 
@@ -29,7 +31,9 @@ class VideoEntity {
   String? fileName;
   String? pic;
   String? url;
-  int? size;
+  int size;
   int? timelength;
+  int dSize;
+  double progress;
   late String savePath;
 }

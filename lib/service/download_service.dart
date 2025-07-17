@@ -14,7 +14,7 @@ import '../utils/timer_count_utils.dart';
 
 class DownloadService extends GetxService {
   static DownloadService get instance => Get.find();
-  final RxList<DownloadTask> taskList = RxList();
+  RxList<DownloadTask> taskList = RxList();
 
   Timer? _timer;
 
@@ -23,7 +23,9 @@ class DownloadService extends GetxService {
     super.onInit();
     startPeriodic();
     ever<List<DownloadTask>>(taskList, (task) {
-      download(taskList[0]);
+      if(taskList[0].state==TaskState.preparing){
+        download(taskList[0]);
+      }
     });
   }
 
@@ -32,10 +34,14 @@ class DownloadService extends GetxService {
   }
 
   void download(DownloadTask task) async {
-    await HttpDio.instance
-        .download(task.videoEntity.url!, task.videoEntity.savePath,
-            (received, total) {
-      Log.d('received=$received,total=$total');
+    task.state = TaskState.running;
+    await HttpDio.instance.download(
+        task.videoEntity.url!, task.videoEntity.savePath, (received, total) {
+      task.videoEntity.dSize = received;
+      task.videoEntity.progress = received / total;
+      if (task.videoEntity.progress >= 1) {
+        task.state = TaskState.completed;
+      }
     });
   }
 
@@ -43,7 +49,10 @@ class DownloadService extends GetxService {
     _timer?.cancel();
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      // Log.d('倒计时：');
+      if (taskList.isNotEmpty) {
+        Log.d('progress=${taskList[0].videoEntity.progress}');
+        taskList.refresh();
+      }
     });
   }
 

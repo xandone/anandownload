@@ -13,4 +13,6 @@ class MyColors {
   static const Color textColor2 = Color(0xFFACB8C9);
   static const Color divideLineColor = Color(0xFFE6EBF4);
   static const Color hintColor = Color(0xFFCED2DB);
+
+  static const Color downloadBgColor = Color(0x4D2F54EB);
 }

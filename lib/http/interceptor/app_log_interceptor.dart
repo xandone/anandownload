@@ -17,7 +17,7 @@ class AppLogInterceptor extends Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    Log.i('response.data=${response.data}');
+    // Log.i('response.data=${response.data}');
     super.onResponse(response, handler);
   }
 }
