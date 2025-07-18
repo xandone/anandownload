@@ -30,4 +30,12 @@ class MyUtils {
     SpUtils.save(Constants.SP_DOWNLOAD_PATH_KEY, path);
     return path;
   }
+
+  static Future open(String storePath) async {
+    if (Platform.isWindows) {
+      await Process.run('explorer', [storePath]);
+    } else if (Platform.isMacOS) {
+      await Process.run('open', [storePath]);
+    }
+  }
 }

@@ -23,9 +23,11 @@ class DownloadService extends GetxService {
     super.onInit();
     startPeriodic();
     ever<List<DownloadTask>>(taskList, (task) {
-      if(taskList[0].state==TaskState.preparing){
-        download(taskList[0]);
-      }
+      taskList.forEach((task) {
+        if (task.state == TaskState.preparing) {
+          download(task);
+        }
+      });
     });
   }
 
@@ -50,7 +52,6 @@ class DownloadService extends GetxService {
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (taskList.isNotEmpty) {
-        Log.d('progress=${taskList[0].videoEntity.progress}');
         taskList.refresh();
       }
     });

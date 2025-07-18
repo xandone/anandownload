@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../service/download_service.dart';
+import '../../utils/logger.dart';
+import '../../utils/my_utils.dart';
 import '../../widget/image_loader.dart';
 
 /// @author: xiao
@@ -20,7 +22,7 @@ class DownloadPage extends StatelessWidget {
           itemCount: DownloadService.instance.taskList.length,
           itemBuilder: (context, index) {
             return Card(
-              child: Stack(children: [
+              child: Stack(alignment: Alignment.bottomLeft, children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -32,16 +34,42 @@ class DownloadPage extends StatelessWidget {
                         80),
                     Expanded(
                       child: ListTile(
-                        title: Text(DownloadService.instance.taskList[index]
-                                .videoEntity.fileName ??
-                            ''),
+                        title: Row(children: [
+                          Expanded(
+                            child: Text(
+                              DownloadService.instance.taskList[index]
+                                      .videoEntity.fileName ??
+                                  '',
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.pause),
+                            color: MyColors.btnColor,
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.delete),
+                            color: Colors.red,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              MyUtils.open(DownloadService.instance
+                                  .taskList[index].videoEntity.savePath);
+                            },
+                            icon: const Icon(Icons.folder),
+                            color: Colors.orangeAccent,
+                          )
+                        ]),
                       ),
                     )
                   ],
                 ),
                 LinearPercentIndicator(
                   padding: EdgeInsets.zero,
-                  lineHeight: 80,
+                  lineHeight: 6,
                   percent: DownloadService
                       .instance.taskList[index].videoEntity.progress,
                   trailing: Text(
@@ -51,7 +79,7 @@ class DownloadPage extends StatelessWidget {
                   ),
                   backgroundColor: Colors.transparent,
                   progressColor: MyColors.downloadBgColor,
-                )
+                ),
               ]),
             );
           },
