@@ -1,9 +1,9 @@
+import 'package:anandownload/utils/my_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 import '../res/colors.dart';
-
 
 /// @author: xandone
 /// created on: 2025/1/18 9:16
@@ -22,12 +22,15 @@ class MyDialog {
   }
 
   static void showSimple(var content, VoidCallback onConfirm,
-      {String cancelStr = '取消', String confirmStr = '确定', String title = '温馨提示'}) {
+      {String cancelStr = '取消',
+      String confirmStr = '确定',
+      String title = '提示'}) {
     SmartDialog.show(
         nonAnimationTypes: [SmartNonAnimationType.closeDialog_nonAnimation],
         builder: (context) {
           return Container(
-            margin: const EdgeInsets.only(left: 30, right: 30),
+            width: MediaQuery.of(context).size.width *
+                (MyUtils.isPC() ? 0.4 : 0.8),
             padding: const EdgeInsets.only(top: 16),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -36,8 +39,8 @@ class MyDialog {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                 Padding(
-                  padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0, right: 16.0),
                   child: Text(
                     title,
                     style: const TextStyle(
@@ -98,7 +101,8 @@ class MyDialog {
       {String title = '温馨提示', String confirmStr = '确定'}) {
     SmartDialog.show(builder: (context) {
       return Container(
-        margin: const EdgeInsets.only(left: 30, right: 30),
+        width: MediaQuery.of(context).size.width *
+            (MyUtils.isPC() ? 0.4 : 0.8),
         padding: const EdgeInsets.only(top: 16),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -123,8 +127,8 @@ class MyDialog {
                 padding: const EdgeInsets.only(left: 16.0, right: 16.0),
                 child: Text(
                   content,
-                  style: const TextStyle(
-                      fontSize: 14, color: MyColors.textColor1),
+                  style:
+                      const TextStyle(fontSize: 14, color: MyColors.textColor1),
                 )),
             const SizedBox(height: 20.0),
             // 底部按钮

@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../../download/download_task.dart';
 import '../../service/download_service.dart';
 import '../../utils/logger.dart';
+import '../../utils/my_dialog.dart';
 import '../../utils/my_utils.dart';
 import '../../widget/image_loader.dart';
 
@@ -44,23 +46,43 @@ class DownloadPage extends StatelessWidget {
                               maxLines: 1,
                             ),
                           ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.pause),
-                            color: MyColors.btnColor,
+                          Tooltip(
+                              message: DownloadService
+                                          .instance.taskList[index].state ==
+                                      TaskState.running
+                                  ? '暂停'
+                                  : '继续',
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(DownloadService
+                                            .instance.taskList[index].state ==
+                                        TaskState.running
+                                    ? Icons.pause
+                                    : Icons.play_arrow),
+                                color: MyColors.btnColor,
+                              )),
+                          Tooltip(
+                            message: '删除',
+                            child: IconButton(
+                              onPressed: () {
+                                MyDialog.showSimple('确定删除吗？', () {
+                                  Log.d('删除');
+                                });
+                              },
+                              icon: const Icon(Icons.delete),
+                              color: Colors.red,
+                            ),
                           ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.delete),
-                            color: Colors.red,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              MyUtils.open(DownloadService.instance
-                                  .taskList[index].videoEntity.savePath);
-                            },
-                            icon: const Icon(Icons.folder),
-                            color: Colors.orangeAccent,
+                          Tooltip(
+                            message: '打开',
+                            child: IconButton(
+                              onPressed: () {
+                                MyUtils.open(DownloadService.instance
+                                    .taskList[index].videoEntity.basePath);
+                              },
+                              icon: const Icon(Icons.folder),
+                              color: Colors.orangeAccent,
+                            ),
                           )
                         ]),
                       ),

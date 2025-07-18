@@ -12,6 +12,7 @@ class VideoEntity {
     this.pic,
     this.dSize = 0,
     this.progress = 0,
+    required this.basePath,
     required this.savePath,
   });
 
@@ -24,6 +25,7 @@ class VideoEntity {
       fileName: json['fileName'],
       pic: json['pic'],
       savePath: json['savePath'],
+      basePath: json['basePath'],
     );
   }
 
@@ -36,4 +38,5 @@ class VideoEntity {
   int dSize;
   double progress;
   late String savePath;
+  late String basePath;
 }
