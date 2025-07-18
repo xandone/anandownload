@@ -46,44 +46,41 @@ class DownloadPage extends StatelessWidget {
                               maxLines: 1,
                             ),
                           ),
-                          Tooltip(
-                              message: DownloadService
-                                          .instance.taskList[index].state ==
-                                      TaskState.running
-                                  ? '暂停'
-                                  : '继续',
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(DownloadService
-                                            .instance.taskList[index].state ==
-                                        TaskState.running
-                                    ? Icons.pause
-                                    : Icons.play_arrow),
-                                color: MyColors.btnColor,
-                              )),
-                          Tooltip(
-                            message: '删除',
-                            child: IconButton(
-                              onPressed: () {
-                                MyDialog.showSimple('确定删除吗？', () {
-                                  Log.d('删除');
-                                });
-                              },
-                              icon: const Icon(Icons.delete),
-                              color: Colors.red,
-                            ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Icon(DownloadService
+                                        .instance.taskList[index].state ==
+                                    TaskState.running
+                                ? Icons.pause
+                                : Icons.play_arrow),
+                            color: MyColors.btnColor,
+                            tooltip: DownloadService
+                                        .instance.taskList[index].state ==
+                                    TaskState.running
+                                ? '暂停'
+                                : '继续',
                           ),
-                          Tooltip(
-                            message: '打开',
-                            child: IconButton(
-                              onPressed: () {
-                                MyUtils.open(DownloadService.instance
-                                    .taskList[index].videoEntity.basePath);
-                              },
-                              icon: const Icon(Icons.folder),
-                              color: Colors.orangeAccent,
-                            ),
-                          )
+                          IconButton(
+                            onPressed: () {
+                              MyDialog.showSimple('确定删除吗？', () {
+                                Log.d('删除');
+                              });
+                            },
+                            icon: const Icon(Icons.delete),
+                            color: Colors.red,
+                            tooltip: '删除',
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Log.d(
+                                  '路径：${DownloadService.instance.taskList[index].videoEntity.basePath}');
+                              MyUtils.open(DownloadService.instance
+                                  .taskList[index].videoEntity.basePath);
+                            },
+                            icon: const Icon(Icons.folder),
+                            color: Colors.orangeAccent,
+                            tooltip: '打开',
+                          ),
                         ]),
                       ),
                     )

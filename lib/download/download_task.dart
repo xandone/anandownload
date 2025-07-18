@@ -4,7 +4,7 @@ import 'package:anandownload/storage/storage_utils.dart';
 import '../entity/video_entity.dart';
 import '../model/video_info_details.dart';
 import '../utils/logger.dart';
-import '../utils/my_utils.dart';
+import 'package:path/path.dart' as p;
 
 /// @author: xiao
 /// created on: 2025/7/16 10:53
@@ -21,7 +21,7 @@ class DownloadTask {
   static Future<DownloadTask> create(
       VideoInfoModel info, VideoInfoDetails? details) async {
     final String basePath = await StorageUtils.getDownloadPath();
-    final String savePath = '$basePath/${info.title}.mp4';
+    final String savePath = p.join(basePath, '$basePath/${info.title}.mp4');
     Map<String, dynamic> json = {
       'fileName': info.title,
       'pic': info.pic,

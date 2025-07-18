@@ -15,7 +15,7 @@ class MyStyles {
   static ButtonStyle btn_commit_style = TextButton.styleFrom(
       backgroundColor: MyColors.btnColor,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(6))));
+          borderRadius: BorderRadius.all(Radius.circular(2))));
 
   static const TextStyle text_nobtn_style = TextStyle(
     fontSize: 14,

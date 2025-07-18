@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../components/drag_wiget.dart';
+import '../../res/gaps.dart';
+import '../../res/styles.dart';
 import '../../service/download_service.dart';
 import '../../utils/logger.dart';
 import '../../widget/image_loader.dart';
@@ -39,8 +41,16 @@ class SearchPage extends GetView<SearchVideoController> {
                   ),
                   contentPadding: const EdgeInsets.only(left: 10)),
             )),
+            Gaps.hGaps10,
             ElevatedButton(
-                onPressed: controller.getData, child: const Text('搜索'))
+              onPressed: controller.getData,
+              style: MyStyles.btn_commit_style,
+              child: const Text(
+                '搜索',
+                style: TextStyle(fontSize: 14, color: MyColors.white),
+              ),
+            ),
+            Gaps.hGaps10,
           ]))),
       body: Obx(() => ListView.builder(
             itemCount: controller.datas.length,
