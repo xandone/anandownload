@@ -24,4 +24,10 @@ class MyStyles {
 
   static const RoundedRectangleBorder shape_r_8 = RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(8)));
+
+  static const TextStyle text_simple_tip_style = TextStyle(
+    fontSize: 20,
+    color: MyColors.textColor2,
+    decoration: TextDecoration.none,
+  );
 }

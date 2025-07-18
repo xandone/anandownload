@@ -33,22 +33,33 @@ class SearchPage extends GetView<SearchVideoController> {
             Expanded(
                 child: Row(children: [
               Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 4),
                   child: TextField(
-                controller: TextEditingController(),
-                decoration: InputDecoration(
-                    hintText: '请输入关键字',
-                    hintStyle: const TextStyle(color: MyColors.hintColor),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5),
-                      borderSide:
-                          const BorderSide(color: MyColors.divideLineColor),
-                    ),
-                    contentPadding: const EdgeInsets.only(left: 10)),
-              )),
+                    controller: TextEditingController(),
+                    decoration: InputDecoration(
+                        hintText: '请输入关键字',
+                        hintStyle: const TextStyle(color: MyColors.hintColor),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide:
+                              const BorderSide(color: MyColors.divideLineColor),
+                        ),
+                        contentPadding: const EdgeInsets.only(left: 10)),
+                  ),
+                ),
+              ),
               Gaps.hGaps10,
               ElevatedButton(
                 onPressed: controller.getData,
-                style: MyStyles.btn_commit_style,
+                style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 30,
+                      vertical: 20,
+                    ),
+                    backgroundColor: MyColors.btnColor,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(2)))),
                 child: const Text(
                   '搜索',
                   style: TextStyle(fontSize: 14, color: MyColors.white),
