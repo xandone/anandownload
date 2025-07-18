@@ -1,3 +1,4 @@
+import 'package:anandownload/components/windows_widget.dart';
 import 'package:anandownload/download/download_task.dart';
 import 'package:anandownload/res/colors.dart';
 import 'package:anandownload/ui/search/search_controller.dart';
@@ -25,32 +26,36 @@ class SearchPage extends GetView<SearchVideoController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(50),
+          preferredSize: const Size.fromHeight(80),
           child: DragWiget(
-              child: Row(children: [
+              child: Column(children: [
+            const WindowsWidget(),
             Expanded(
-                child: TextField(
-              controller: TextEditingController(),
-              decoration: InputDecoration(
-                  hintText: '请输入关键字',
-                  hintStyle: const TextStyle(color: MyColors.hintColor),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5),
-                    borderSide:
-                        const BorderSide(color: MyColors.divideLineColor),
-                  ),
-                  contentPadding: const EdgeInsets.only(left: 10)),
-            )),
-            Gaps.hGaps10,
-            ElevatedButton(
-              onPressed: controller.getData,
-              style: MyStyles.btn_commit_style,
-              child: const Text(
-                '搜索',
-                style: TextStyle(fontSize: 14, color: MyColors.white),
+                child: Row(children: [
+              Expanded(
+                  child: TextField(
+                controller: TextEditingController(),
+                decoration: InputDecoration(
+                    hintText: '请输入关键字',
+                    hintStyle: const TextStyle(color: MyColors.hintColor),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide:
+                          const BorderSide(color: MyColors.divideLineColor),
+                    ),
+                    contentPadding: const EdgeInsets.only(left: 10)),
+              )),
+              Gaps.hGaps10,
+              ElevatedButton(
+                onPressed: controller.getData,
+                style: MyStyles.btn_commit_style,
+                child: const Text(
+                  '搜索',
+                  style: TextStyle(fontSize: 14, color: MyColors.white),
+                ),
               ),
-            ),
-            Gaps.hGaps10,
+              Gaps.hGaps10,
+            ])),
           ]))),
       body: Obx(() => ListView.builder(
             itemCount: controller.datas.length,
