@@ -1,17 +1,18 @@
 import 'dart:async';
 
 import 'package:anandownload/service/download_service.dart';
+import 'package:anandownload/utils/my_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../download/download_task.dart';
-import '../../entity/video_entity.dart';
 import '../../http/api.dart';
 import '../../http/http_dio.dart';
 import '../../model/video_info_details.dart';
 import '../../model/videoinfo_model.dart';
 import '../../utils/logger.dart';
 import '../../utils/my_utils.dart';
+import '../../utils/toast.dart';
 
 /// @author: xiao
 /// created on: 2025/7/11 17:42
@@ -29,8 +30,17 @@ class SearchVideoController extends GetxController {
   }
 
   Future<void> getData() async {
+    final String keyword = textEditingController.text;
+    if (keyword.isEmpty) {
+      if (MyUtils.isPhone()) {
+        MyToast.showToast('请输入关键字');
+      } else {
+        MyDialog.showSimpleOnlyComfirm('请输入关键字', () {});
+      }
+      return;
+    }
     final RegExp regExp = RegExp(r'BV[\w]+');
-    final match = regExp.firstMatch(Api.test);
+    final match = regExp.firstMatch(textEditingController.text);
     await HttpDio.instance.get(Api.search, data: {
       "bvid": match?.group(0),
     }).then((value) {

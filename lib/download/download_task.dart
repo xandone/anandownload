@@ -1,5 +1,6 @@
 import 'package:anandownload/model/videoinfo_model.dart';
 import 'package:anandownload/storage/storage_utils.dart';
+import 'package:dio/dio.dart';
 
 import '../entity/video_entity.dart';
 import '../model/video_info_details.dart';
@@ -13,6 +14,7 @@ import 'package:path/path.dart' as p;
 class DownloadTask {
   TaskState state;
   late VideoEntity videoEntity;
+  CancelToken cancelToken = CancelToken();
 
   DownloadTask({
     this.state = TaskState.preparing,

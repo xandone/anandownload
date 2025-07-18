@@ -1,5 +1,4 @@
 import 'package:anandownload/res/gaps.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../res/colors.dart';

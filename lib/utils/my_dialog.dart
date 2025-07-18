@@ -83,7 +83,7 @@ class MyDialog {
                       TextButton(
                           onPressed: () {
                             SmartDialog.dismiss();
-                            onConfirm();
+                            onConfirm;
                           },
                           child: Text(confirmStr,
                               style: const TextStyle(
@@ -101,8 +101,7 @@ class MyDialog {
       {String title = '温馨提示', String confirmStr = '确定'}) {
     SmartDialog.show(builder: (context) {
       return Container(
-        width: MediaQuery.of(context).size.width *
-            (MyUtils.isPC() ? 0.4 : 0.8),
+        width: MediaQuery.of(context).size.width * (MyUtils.isPC() ? 0.4 : 0.8),
         padding: const EdgeInsets.only(top: 16),
         decoration: BoxDecoration(
           color: Colors.white,

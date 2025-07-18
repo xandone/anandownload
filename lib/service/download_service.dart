@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 import '../download/download_task.dart';
@@ -35,6 +36,24 @@ class DownloadService extends GetxService {
     taskList.add(task);
   }
 
+  void switchDownload(DownloadTask task) {
+    if (task.state == TaskState.running) {
+      pauseDownload(task);
+    } else {
+      reDownload(task);
+    }
+  }
+
+  void pauseDownload(DownloadTask task) {
+    task.state = TaskState.paused;
+    task.cancelToken.cancel();
+  }
+
+  void reDownload(DownloadTask task) {
+    task.cancelToken = CancelToken();
+    download(task);
+  }
+
   void download(DownloadTask task) async {
     task.state = TaskState.running;
     await HttpDio.instance.download(
@@ -44,7 +63,7 @@ class DownloadService extends GetxService {
       if (task.videoEntity.progress >= 1) {
         task.state = TaskState.completed;
       }
-    });
+    }, task.cancelToken);
   }
 
   void startPeriodic() {

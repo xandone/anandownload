@@ -101,8 +101,13 @@ class HttpDio {
   }
 
   Future<dynamic> download(String urlPath, String savePath,
-      ProgressCallback? onReceiveProgress) async {
-    _dio.download(urlPath, savePath, onReceiveProgress: onReceiveProgress);
+      ProgressCallback? onReceiveProgress, CancelToken? cancelToken) async {
+    _dio.download(
+      urlPath,
+      savePath,
+      onReceiveProgress: onReceiveProgress,
+      cancelToken: cancelToken,
+    );
   }
 }
 

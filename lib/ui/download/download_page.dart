@@ -1,3 +1,4 @@
+import 'package:anandownload/components/drag_wiget.dart';
 import 'package:anandownload/components/loading_tip.dart';
 import 'package:anandownload/components/windows_widget.dart';
 import 'package:anandownload/res/colors.dart';
@@ -23,7 +24,7 @@ class DownloadPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(50), child: WindowsWidget()),
+          preferredSize: Size.fromHeight(50), child: DragWiget(child: WindowsWidget())),
       body: Obx(() => LoadingTip(
             initStatus: DownloadService.instance.taskList.isEmpty
                 ? LoadingStatus.empty
@@ -55,7 +56,10 @@ class DownloadPage extends StatelessWidget {
                                 ),
                               ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  DownloadService.instance.switchDownload(
+                                      DownloadService.instance.taskList[index]);
+                                },
                                 icon: Icon(DownloadService
                                             .instance.taskList[index].state ==
                                         TaskState.running
@@ -70,7 +74,7 @@ class DownloadPage extends StatelessWidget {
                               ),
                               IconButton(
                                 onPressed: () {
-                                  MyDialog.showSimple('确定删除吗？', () {
+                                  MyDialog.showSimple('确定删除记录吗？', () {
                                     Log.d('删除');
                                   });
                                 },
