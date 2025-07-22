@@ -1,7 +1,12 @@
+import 'package:hive/hive.dart';
+
+part 'video_entity.g.dart';
+
 /// @author: xiao
 /// created on: 2025/7/15 11:49
 /// description:
 
+@HiveType(typeId: 1)
 class VideoEntity {
   VideoEntity({
     this.id,
@@ -10,7 +15,7 @@ class VideoEntity {
     this.url,
     this.fileName,
     this.pic,
-    this.dSize = 0,
+    this.pSize = 0,
     this.progress = 0,
     required this.basePath,
     required this.savePath,
@@ -29,14 +34,24 @@ class VideoEntity {
     );
   }
 
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   String? fileName;
+  @HiveField(2)
   String? pic;
+  @HiveField(3)
   String? url;
+  @HiveField(4)
   int size;
+  @HiveField(5)
   int? timelength;
-  int dSize;
+  @HiveField(6)
+  int pSize;
+  @HiveField(7)
   double progress;
+  @HiveField(8)
   late String savePath;
+  @HiveField(9)
   late String basePath;
 }

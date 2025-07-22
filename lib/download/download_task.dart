@@ -2,7 +2,7 @@ import 'package:anandownload/model/videoinfo_model.dart';
 import 'package:anandownload/storage/storage_utils.dart';
 import 'package:dio/dio.dart';
 
-import '../entity/video_entity.dart';
+import '../db/video_entity.dart';
 import '../model/video_info_details.dart';
 import '../utils/logger.dart';
 import 'package:path/path.dart' as p;

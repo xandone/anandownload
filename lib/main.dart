@@ -1,3 +1,4 @@
+import 'package:anandownload/db/video_entity.dart';
 import 'package:anandownload/routes/page_manifest.dart';
 import 'package:anandownload/routes/page_path.dart';
 import 'package:anandownload/service/download_service.dart';
@@ -6,8 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:window_manager/window_manager.dart';
 
 void main() async {
@@ -37,6 +37,9 @@ void main() async {
       await windowManager.show();
       await windowManager.focus();
     });
+
+    await Hive.initFlutter();
+    Hive.registerAdapter(VideoEntityAdapter());
   }
 
   Get.put(DownloadService());
