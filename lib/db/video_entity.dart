@@ -35,7 +35,7 @@ class VideoEntity {
   }
 
   @HiveField(0)
-  int? id;
+  String? id;
   @HiveField(1)
   String? fileName;
   @HiveField(2)

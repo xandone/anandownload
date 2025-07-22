@@ -17,7 +17,7 @@ class VideoEntityAdapter extends TypeAdapter<VideoEntity> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return VideoEntity(
-      id: fields[0] as int?,
+      id: fields[0] as String?,
       size: fields[4] as int,
       timelength: fields[5] as int?,
       url: fields[3] as String?,

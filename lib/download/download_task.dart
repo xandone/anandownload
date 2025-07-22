@@ -25,6 +25,7 @@ class DownloadTask {
     final String basePath = await StorageUtils.getDownloadPath();
     final String savePath = p.join(basePath, '$basePath/${info.title}.mp4');
     Map<String, dynamic> json = {
+      'id': info.bvid,
       'fileName': info.title,
       'pic': info.pic,
       'url': details?.url,

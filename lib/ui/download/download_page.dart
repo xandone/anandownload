@@ -74,8 +74,10 @@ class DownloadPage extends StatelessWidget {
                               ),
                               IconButton(
                                 onPressed: () {
-                                  MyDialog.showSimple('确定删除记录吗？', () {
+                                  MyDialog.showSimple('确定删除吗？', () {
                                     Log.d('删除');
+                                    DownloadService.instance.deleteDownload(
+                                        DownloadService.instance.taskList[index]);
                                   });
                                 },
                                 icon: const Icon(Icons.delete),

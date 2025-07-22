@@ -34,8 +34,11 @@ class DownloadService extends GetxService {
 
     List<DownloadTask> list = videoEntityBox.values
         .toList()
-        .map((it) => DownloadTask()..videoEntity = it)
+        .map((it) => DownloadTask()
+          ..state = TaskState.paused
+          ..videoEntity = it)
         .toList();
+    Log.d('list=${jsonEncode(list[0].videoEntity.progress)}');
     taskList.addAll(list);
 
     startPeriodic();
@@ -69,6 +72,13 @@ class DownloadService extends GetxService {
   void reDownload(DownloadTask task) {
     task.cancelToken = CancelToken();
     download(task);
+  }
+
+  void deleteDownload(DownloadTask task) {
+    task.state = TaskState.failed;
+    task.cancelToken.cancel();
+    taskList.remove(task);
+    videoEntityBox.delete(task.videoEntity.id);
   }
 
   void download(DownloadTask task) async {

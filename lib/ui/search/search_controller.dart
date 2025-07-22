@@ -63,6 +63,12 @@ class SearchVideoController extends GetxController {
   }
 
   void addDownloadTask() async {
+    String id = datas[0].bvid;
+    if (DownloadService.instance.taskList
+        .any((task) => task.videoEntity.id == id)) {
+      MyToast.showToast0('任务已存在');
+      return;
+    }
     DownloadTask task =
         await DownloadTask.create(datas[0], videoInfoDetails.value);
     DownloadService.instance.addDownloadTask(task);

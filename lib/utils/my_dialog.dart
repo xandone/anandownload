@@ -83,7 +83,7 @@ class MyDialog {
                       TextButton(
                           onPressed: () {
                             SmartDialog.dismiss();
-                            onConfirm;
+                            onConfirm();
                           },
                           child: Text(confirmStr,
                               style: const TextStyle(
