@@ -3,7 +3,6 @@ import 'package:anandownload/res/colors.dart';
 import 'package:anandownload/ui/search/search_controller.dart';
 import 'package:anandownload/utils/my_utils.dart';
 import 'package:anandownload/utils/toast.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,9 +24,32 @@ class SearchPage extends GetView<SearchVideoController> {
           preferredSize: const Size.fromHeight(80),
           child: DragWiget(
               child: Column(children: [
-            const WindowsWidget(),
+            Visibility(
+              visible: MyUtils.isPC(),
+              child: const WindowsWidget(),
+            ),
             Expanded(
                 child: Row(children: [
+              Obx(() => DropdownButton(
+                  icon: const Icon(Icons.arrow_drop_down),
+                  value: controller.selectIndex.value,
+                  items: const [
+                    DropdownMenuItem(
+                      value: 0,
+                      child: Text('B站'),
+                    ),
+                    DropdownMenuItem(
+                      value: 1,
+                      child: Text('抖音'),
+                    ),
+                    DropdownMenuItem(
+                      value: 2,
+                      child: Text('其他'),
+                    ),
+                  ],
+                  onChanged: (v) {
+                    controller.selectIndex.value = v!;
+                  })),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 4),
@@ -46,19 +68,21 @@ class SearchPage extends GetView<SearchVideoController> {
                 ),
               ),
               Gaps.hGaps10,
-              ElevatedButton(
-                onPressed: controller.getData,
-                style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 20,
-                    ),
-                    backgroundColor: MyColors.btnColor,
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(2)))),
-                child: const Text(
-                  '搜索',
-                  style: TextStyle(fontSize: 14, color: MyColors.white),
+              SizedBox(
+                height: 45,
+                child: ElevatedButton(
+                  onPressed: controller.getData,
+                  style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 30,
+                      ),
+                      backgroundColor: MyColors.btnColor,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(2)))),
+                  child: const Text(
+                    '搜索',
+                    style: TextStyle(fontSize: 14, color: MyColors.white),
+                  ),
                 ),
               ),
               Gaps.hGaps10,

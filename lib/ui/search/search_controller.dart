@@ -24,6 +24,8 @@ class SearchVideoController extends GetxController {
   RxList<VideoInfoModel> datas = RxList();
   Rx<VideoInfoDetails?> videoInfoDetails = Rx(null);
 
+  RxInt selectIndex = 0.obs;
+
   @override
   void onInit() {
     super.onInit();

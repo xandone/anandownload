@@ -23,8 +23,13 @@ class DownloadPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(50), child: DragWiget(child: WindowsWidget())),
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(50),
+          child: DragWiget(
+              child: Visibility(
+            visible: MyUtils.isPC(),
+            child: const WindowsWidget(),
+          ))),
       body: Obx(() => LoadingTip(
             initStatus: DownloadService.instance.taskList.isEmpty
                 ? LoadingStatus.empty
@@ -77,7 +82,8 @@ class DownloadPage extends StatelessWidget {
                                   MyDialog.showSimple('确定删除吗？', () {
                                     Log.d('删除');
                                     DownloadService.instance.deleteDownload(
-                                        DownloadService.instance.taskList[index]);
+                                        DownloadService
+                                            .instance.taskList[index]);
                                   });
                                 },
                                 icon: const Icon(Icons.delete),
