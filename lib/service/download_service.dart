@@ -29,11 +29,11 @@ class DownloadService extends GetxService {
   onInit() async {
     super.onInit();
     var dir = await getApplicationSupportDirectory();
+
     videoEntityBox =
         await Hive.openBox<VideoEntity>(VIDEO_ENTITY_KEY, path: dir.path);
 
     List<DownloadTask> list = videoEntityBox.values
-        .toList()
         .map((it) => DownloadTask()
           ..state = TaskState.paused
           ..videoEntity = it)
@@ -53,7 +53,7 @@ class DownloadService extends GetxService {
 
   void addDownloadTask(DownloadTask task) {
     taskList.add(task);
-    videoEntityBox.add(task.videoEntity);
+    videoEntityBox.put(task.videoEntity.id, task.videoEntity);
   }
 
   void switchDownload(DownloadTask task) {
@@ -90,6 +90,7 @@ class DownloadService extends GetxService {
       if (task.videoEntity.progress >= 1) {
         task.state = TaskState.completed;
       }
+      updateDb(task.videoEntity);
     }, task.cancelToken);
   }
 
@@ -101,6 +102,14 @@ class DownloadService extends GetxService {
         taskList.refresh();
       }
     });
+  }
+
+  void updateDb(VideoEntity entity) async {
+    VideoEntity videoEntity =
+        videoEntityBox.values.firstWhere((x) => x.id == entity.id);
+    videoEntity.progress = entity.progress;
+    videoEntity.pSize = entity.pSize;
+    videoEntityBox.put(videoEntity.id, videoEntity);
   }
 
   @override
